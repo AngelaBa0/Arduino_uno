@@ -1,0 +1,81 @@
+int pin1 = 13 ;
+int pin2 = 12 ;
+int pin3 = 11 ;
+int pin4 = 10 ;
+int pin5 = 9 ; 
+int sensor = A0 ; 
+int count= 0 ; 
+
+int state1, state2, state3 , state4 , state5  =HIGH  ;  
+void setup()
+
+{
+
+pinMode(sensor, INPUT);
+
+Serial.begin(9600);
+
+pinMode(pin1, OUTPUT);
+pinMode(pin2, OUTPUT);
+pinMode(pin5, OUTPUT);
+
+pinMode(pin3, OUTPUT);
+
+pinMode(pin4, OUTPUT);
+
+}
+
+void loop()
+
+{
+int sensorVal =  analogRead(sensor) ; 
+Serial.println( analogRead(sensor)) ; 
+
+if( count == 0 ) { 
+  state1=HIGH; 
+    state2=HIGH;   state3=HIGH;  state4=HIGH;   state5=HIGH; 
+}
+if (sensorVal <400) {
+ count ++ ; 
+  
+
+
+} 
+if (count == 1 ) { 
+
+    state1= LOW ; 
+    
+  } else if ( count == 2) { 
+    state1= LOW ;
+     state2= LOW ; 
+  }  else if ( count == 3) { 
+    state1= LOW ; 
+    state2= LOW ; 
+    state3 = LOW ;  
+  } else if ( count == 4) { 
+    state1= LOW ; 
+    state2= LOW ;  
+    state3 = LOW ;  
+     state4 = LOW ;  
+  }  else if ( count == 5) { 
+    state1= LOW ; 
+    state2= LOW ; 
+    state3 = LOW ;  
+    state4 = LOW ;  
+    state5 = LOW ;
+     count = 0 ;   
+  }
+
+ digitalWrite(pin1, state1);
+
+digitalWrite(pin2, state2);
+
+digitalWrite(pin3, state3);
+
+digitalWrite(pin4, state4);
+
+digitalWrite(pin5, state5) ;
+
+delay(1000); // Wait
+
+}

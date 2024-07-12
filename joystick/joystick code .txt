@@ -1,0 +1,29 @@
+int pinJX = A1;
+
+int pinJY = A0;
+
+int pinSW = 7;
+
+void setup() {
+
+pinMode(pinJX, INPUT);
+
+pinMode(pinJY, INPUT);
+
+pinMode(pinSW, INPUT_PULLUP);
+
+Serial.begin(9600);
+
+}
+
+void loop() {
+
+Serial.println(analogRead(pinJX));
+
+Serial.println(analogRead(pinJY));
+
+Serial.println(digitalRead(pinSW));
+
+delay(500);
+
+}

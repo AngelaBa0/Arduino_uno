@@ -1,0 +1,176 @@
+FIRST METHOD : (2 arrays ) 
+
+
+int A = 6, B = 7, C = 8, D = 9, E = 10, F = 11, G = 12;  //connection pins 
+
+int arrPin[7] = {A, B, C, D, E, F, G};
+
+int matNUMLED[ 13 ][ 7 ] = {
+
+{ 1, 1, 1, 1, 1, 1, 0 },// 0
+
+{ 0, 1, 1, 0, 0, 0, 0 },// 1
+
+{ 1, 1, 0, 1, 1, 0, 1 },// 2
+
+{ 1, 1, 1, 1, 0, 0, 1 },// 3
+
+{ 0, 1, 1, 0, 0, 1, 1 },// 4
+
+{ 1, 0, 1, 1, 0, 1, 1 },// 5
+
+{ 1, 0, 1, 1, 1, 1, 1 },// 6
+
+{ 1, 1, 1, 0, 0, 0, 0 },// 7
+
+{ 1, 1, 1, 1, 1, 1, 1 },// 8
+
+{ 1, 1, 1, 1, 0, 1, 1 },// 9
+
+{ 1, 1, 1, 0, 1, 1, 1 },// A
+
+{ 0, 0, 1, 1, 1, 1, 1 },// B
+
+{ 1, 0, 0, 1, 1, 1, 0 },// C
+
+};
+
+
+
+
+//code for more alphabets 
+
+//{ 0, 0, 1, 1, 1, 1, 1 },// D
+
+//{ 1, 0, 0, 1, 1, 1, 1 },// E
+
+//{ 1, 0, 0, 0, 1, 1, 1 },// F
+
+//{ 1, 1, 1, 0, 1, 1, 1 }// G
+
+
+void setup(){
+
+
+for (int i = 0; i <7; i++){ 
+
+pinMode(arrPin[i], OUTPUT); // define seven segment display as an output 
+ }  } 
+
+
+void loop(){
+
+
+
+for (int i = 0; i < 7; i++)
+
+digitalWrite(arrPin[i], matNUMLED[value][i]); //to light up the seven segment display 
+
+
+}
+
+
+
+
+2-SECOND METHOD : (1 array ) 
+
+int A = 2;
+
+int B = 3;
+
+int C = 4;
+
+int D = 5;
+
+int E = 6;
+
+int F = 7;
+
+int G = 8,DP = 9;
+
+void setup(void){
+
+pinMode(A, OUTPUT);
+
+pinMode(B, OUTPUT);
+
+pinMode(C, OUTPUT);
+
+pinMode(D, OUTPUT);
+
+pinMode(E, OUTPUT);
+
+pinMode(F, OUTPUT);
+
+pinMode(G, OUTPUT);
+
+pinMode(DP, OUTPUT);
+
+writeDot(0);//start with dot off
+ } 
+
+byte seven_seg_digits[10][7] = {
+
+{ 1, 1, 1, 1, 1, 1, 0 }, // = 0
+
+{ 0, 1, 1, 0, 0, 0, 0 }, // = 1
+
+{ 1, 1, 0, 1, 1, 0, 1 }, // = 2
+
+{ 1, 1, 1, 1, 0, 0, 1 }, // = 3
+
+{ 0, 1, 1, 0, 0, 1, 1 }, // = 4
+
+{ 1, 0, 1, 1, 0, 1, 1 }, // = 5
+
+{ 1, 0, 1, 1, 1, 1, 1 }, // = 6
+
+{ 1, 1, 1, 0, 0, 0, 0 }, // = 7
+
+{ 1, 1, 1, 1, 1, 1, 1 }, // = 8
+
+{ 1, 1, 1, 0, 0, 1, 1 } // = 9
+
+};
+
+
+
+
+
+
+
+
+void loop() {
+
+for (byte count = 9; count >=0; --count) {
+
+delay(1000);
+
+sevenSegWrite(count); //Write count on the SSD
+
+}
+
+delay(4000);
+
+}
+
+void writeDot(byte dot) {
+
+digitalWrite(9, dot);
+
+}
+
+void sevenSegWrite(byte digit) {
+
+byte pin = 2;
+
+for (byte segCount = 0; segCount < 7; ++segCount) {
+
+digitalWrite(pin, seven_seg_digits[digit][segCount]);
+
+++pin;
+
+}
+
+} 
+

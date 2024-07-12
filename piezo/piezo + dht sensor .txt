@@ -1,0 +1,68 @@
+
+#include "DHT.h"
+#define DHTPIN 7 //connect to pin 7
+#define DHTTYPE DHT22  
+DHT dht(DHTPIN , DHTTYPE) ; 
+
+#define PIEZO 3 //connect to pin 3
+
+int pin1 = 8 ; 
+int pin2 = 9 ; 
+int pin3= 10 ; 
+int button1 =2; 
+int button2 = 3; 
+
+int a = 0 ; 
+
+void setup(){
+Serial.begin(9600); //opens serial port, sets data rate to 9600 bps
+dht.begin() ; 
+  pinMode(pin1, OUTPUT ) ; 
+  pinMode(pin2, OUTPUT ) ; 
+  pinMode(pin3, OUTPUT ) ;  
+  pinMode(button1, INPUT ) ; 
+  pinMode(button2, INPUT ) ; 
+pinMode(PIEZO ,OUTPUT) ; 
+while ( Serial.available() == 0 ) { }
+}
+
+int state1 = LOW ; 
+int count = 0 ;
+  
+void loop(){ 
+ 
+if (Serial.available() > 0) {
+
+a = Serial.parseInt();
+
+Serial.print("You entered: ");
+
+Serial.println(a);
+
+}  
+if (digitalRead(button1==HIGH)) { 
+  state1=HIGH ; 
+  count++ ; 
+} 
+
+if (state1==HIGH) { 
+  digitalWrite(pin1 , LOW) ; 
+  digitalWrite(pin2 , HIGH) ; 
+  digitalWrite(pin2 , LOW) ; 
+float h = dht.readTemperature() ; 
+if ( h < a ) { 
+tone ( PIEZO , 262) ; 
+} 
+
+
+if ( h>= a && h>= a+20) { 
+    digitalWrite(pin3 , HIGH) ; 
+}
+} delay(1000) ; 
+
+
+
+
+
+
+}

@@ -1,0 +1,119 @@
+#include <ezButton.h>
+
+//create ezButton object attached to pin 2;
+
+ezButton button(2);
+
+int UD = 0, LR = 0, piezo = 9;
+
+/*Arduino Micro Input Pins */
+
+int IUP = A1, ILR = A0;
+
+int MID = 2, LRMID = 0, UPMID = 0;
+
+void setup() {
+
+Serial.begin(9600);
+
+pinMode(piezo, OUTPUT);
+
+button.setDebounceTime(50);
+
+//calibrate center
+
+LRMID = analogRead(ILR);
+
+UPMID = analogRead(IUP);
+
+}
+
+MID = 0, UPMID = 0;
+
+void loop() {
+
+UD = analogRead(IUP);
+
+LR = analogRead(ILR);
+
+// UP-DOWN
+
+if (UD < UPMID - MID) {
+
+tone(piezo, 1000, 100);
+
+Serial.println("UP");
+
+// TODO: add your task here
+
+} else {
+
+noTone(piezo);
+
+}
+
+if (UD > UPMID + MID) {
+
+tone(piezo, 1100, 100);
+
+Serial.println("Down");
+
+// TODO: add your task here
+
+} else {
+
+noTone(piezo);
+
+}
+
+// Left-RIGHT
+
+if (LR < LRMID - MID) {
+
+tone(piezo, 1200, 100);
+
+Serial.println("left");
+
+// TODO: add your task here
+
+} else {
+
+noTone(piezo);
+
+}
+
+if (LR > LRMID + MID) {
+
+tone(piezo, 1300, 100);
+
+Serial.println("Right");
+
+// TODO: add your task here
+
+} else {
+
+noTone(piezo);
+
+} 
+
+// MUST call the button loop() function first
+
+button.loop();
+
+if (button.isPressed()) {
+
+Serial.println("The button is pressed");
+
+tone(piezo, 1400, 100);
+
+// TODO: add your task here
+
+}
+
+if (button.isReleased()) {
+
+Serial.println("The button is released");
+
+// TODO: add your task here
+
+} delay(100);

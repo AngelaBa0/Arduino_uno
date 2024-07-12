@@ -1,0 +1,86 @@
+//joystick + 3 leds +piezo 
+
+
+
+// if joystick is moved to the left the left light will turn on , if moved the the right the right light will turn on 
+// if moved to the back the piezo will turn on 
+
+
+
+
+
+#define PIEZO 3 
+int pinX = A1 ; 
+int pinY= A0 ; 
+int pinSW = 2 ; 
+int pinRight = 8 ; 
+int pinLeft = 10 ; 
+int pinMiddle =9 ; 
+
+void setup()
+{ 
+
+  
+pinMode(PIEZO, OUTPUT); 
+
+pinMode(pinX ,INPUT ) ; 
+pinMode(pinY ,  INPUT) ; 
+pinMode(pinSW , INPUT_PULLUP ) ; 
+pinMode(pinRight ,  OUTPUT) ; 
+pinMode(pinLeft ,  OUTPUT) ; 
+pinMode(pinMiddle ,  OUTPUT) ; 
+
+Serial.begin(9600) ; 
+}
+int x= 0 ; 
+int y = 0 ;
+void loop()
+{
+  int state = digitalRead(pinSW) ; 
+  x= analogRead(pinX)  ; 
+ y  =analogRead(pinY) ; 
+  Serial.print("  X: ") ; 
+	Serial.print(x) ; 
+  Serial.print("   Y : ") ; 
+  Serial.print(y) ; 
+  Serial.print(" , PB:  ") ; 
+Serial.println(state) ; 
+
+
+
+if ((x>=0) && (x< 500)&&(y>=0)&&(y< 500)) { 
+  digitalWrite( pinLeft , HIGH) ; 
+     delay(500) ; 
+    digitalWrite( pinLeft , LOW) ; 
+      digitalWrite( pinLeft , LOW) ; 
+       digitalWrite( pinMiddle , LOW) ; 
+ 
+  
+}if ((y>515)&&(x>510)) { 
+   digitalWrite( pinRight , HIGH) ; 
+       delay(500) ;
+    digitalWrite( pinRight , LOW) ; 
+      digitalWrite( pinLeft , LOW) ; 
+       digitalWrite( pinMiddle , LOW) ; 
+      
+ 
+  
+}if ((x>=0)&&(x<500)&&(y<=1023)&&(y>=510)) { 
+
+
+    digitalWrite( pinRight , LOW) ; 
+      digitalWrite( pinLeft , LOW) ; 
+       digitalWrite( pinMiddle , HIGH) ; 
+      delay(500) ; 
+}
+
+if ( digitalRead ( pinSW) == LOW) { 
+  tone (PIEZO , 300) ; 
+
+} else 
+noTone(PIEZO);
+
+
+  delay(500) ; 
+
+}

@@ -1,0 +1,90 @@
+///* Map an analog value to 8 bits (0 to 255) */
+void setup() {}
+
+void loop() {
+  int val = analogRead(0);
+  val = map(val, 0, 1023, 0, 255);
+  analogWrite(9, val);
+}
+
+
+
+
+////PHOTORESISTOR////
+
+int led = 11,photocell = 0, start = 0;
+int button = 7, piezo = 3, ledValue=0;
+ 
+void setup()  {
+  pinMode(led, OUTPUT);  pinMode(piezo, OUTPUT);
+  pinMode(button, INPUT);
+  Serial.begin(9600);
+}  
+void loop()  {   
+  if(digitalRead(button) == HIGH){ start = 1; }
+  if(start == 1){
+  	photocell = map (analogRead(0), 0, 675, 0, 255); 
+  
+	ledValue = max(0, 255 - photocell);
+  	Serial.println(ledValue);
+  	analogWrite(led, ledValue); 
+  	if(photocell < 50){
+	  	tone(piezo, 262, 50);
+	  	delay(100);
+	  	noTone(piezo); 
+  	}
+  }
+  delay(20);                            
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+ void setup(){
+
+Serial.begin(9600); //opens serial port, sets data rate to 9600 bps
+
+Serial.flush(); // clear any "junk" out of the serial buffer
+
+Serial.println("Enter a nb: ");
+
+while (Serial.available() == 0){
+
+Serial.print(".");
+
+// do nothing until something enters the serial buffer
+
+}
+
+}
+
+int a, b, s = 0;
+
+void loop(){
+
+if (Serial.available() > 0) {
+
+a = Serial.parseInt();
+
+Serial.print("You entered: ");
+
+Serial.println(a);
+
+s += a;
+
+Serial.print("Sum= ");
+
+Serial.println(s);
+
+}
+
+}

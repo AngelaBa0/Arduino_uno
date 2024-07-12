@@ -1,0 +1,48 @@
+#define PIEZO 3 // pin 3 is capable of PWM
+
+int del = 500;
+
+int melody[] = {262, 196, 196, 220, 196, 0, 247, 262};
+
+int noteDurations[] = {4, 8, 8, 4, 4, 4, 4, 4};
+
+// note durations: 4 = quarter note,
+
+void setup(){
+
+pinMode(PIEZO, OUTPUT);
+
+for (int i = 0; i < 8; i++) {
+
+int noteDuration = 1000 / noteDurations[i];
+
+tone(PIEZO, melody[i], noteDuration);
+
+int pauseBetweenNotes = noteDuration * 1.30;
+
+delay(pauseBetweenNotes);
+
+// stop the tone playing:
+
+noTone(PIEZO);
+
+}
+
+delay(1000);}
+
+
+void loop(){
+
+analogWrite(PIEZO, 128);
+
+// 50 percent duty cycle tone to the piezo
+
+delay(del);
+
+digitalWrite(PIEZO, LOW);
+
+// turn the piezo off
+
+delay(del);
+
+}
